@@ -3,6 +3,8 @@ class Calculator
     return 0 if numbers.empty?
 
     delimiter, numbers = extract_delimiter_and_numbers(numbers)
+    tokens = split_numbers(numbers, delimiter)
+    validate_no_negatives(tokens)
   end
 
   private
@@ -15,5 +17,14 @@ class Calculator
     else
       [",", numbers]
     end
+  end
+
+  def self.split_numbers(numbers, delimiter)
+    numbers.split(/#{delimiter}|\n/)
+  end
+
+  def self.validate_no_negatives(tokens)
+    negatives = tokens.map(&:to_i).select { |n| n < 0 }
+    raise "negative numbers not allowed: #{negatives.join(', ')}" unless negatives.empty?
   end
 end
