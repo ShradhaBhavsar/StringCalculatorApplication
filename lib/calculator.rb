@@ -5,6 +5,7 @@ class Calculator
     delimiter, numbers = extract_delimiter_and_numbers(numbers)
     tokens = split_numbers(numbers, delimiter)
     validate_no_negatives(tokens)
+    calculate_sum(tokens)
   end
 
   private
@@ -27,4 +28,9 @@ class Calculator
     negatives = tokens.map(&:to_i).select { |n| n < 0 }
     raise "negative numbers not allowed: #{negatives.join(', ')}" unless negatives.empty?
   end
+
+  def self.calculate_sum(tokens)
+    tokens.map(&:to_i).sum
+  end
 end
+
